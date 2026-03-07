@@ -33,10 +33,15 @@ final class HomeViewModel: ObservableObject {
 
     func refresh() async {
         errorMessage = nil
-        do {
-            sections = try await apiService.fetchHomeSections()
-        } catch {
-            errorMessage = error.localizedDescription
+        await withCheckedContinuation { continuation in
+            Task {
+                do {
+                    self.sections = try await apiService.fetchHomeSections()
+                } catch {
+                    self.errorMessage = error.localizedDescription
+                }
+                continuation.resume()
+            }
         }
     }
 }
