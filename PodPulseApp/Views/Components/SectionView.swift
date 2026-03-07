@@ -12,36 +12,42 @@ struct SectionView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // Section header
-            HStack {
-                Text(section.name)
-                    .font(AppFont.bold(size: 20))
-                    .foregroundColor(.primary)
-                Spacer()
-                Image(systemName: "chevron.forward")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            .padding(.horizontal)
+            sectionHeader
             
-            // Section content
-            ScrollView(.horizontal, showsIndicators: false) {
-                Group {
-                    switch section.displayType {
-                    case .square:
-                        squareLayout
-                    case .bigSquare:
-                        bigSquareLayout
-                    case .twoLinesGrid:
-                        twoLinesGridLayout
-                    case .queue:
-                        queueLayout
-                    }
-                }
-                .padding(.horizontal)
-            }
+            sectionContent
         }
         .padding(.vertical, 8)
+    }
+    
+    private var sectionHeader: some View {
+        HStack {
+            Text(section.name)
+                .font(AppFont.bold(size: 20))
+                .foregroundColor(.primary)
+            Spacer()
+            Image(systemName: "chevron.forward")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+        }
+        .padding(.horizontal)
+    }
+    
+    private var sectionContent: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            Group {
+                switch section.displayType {
+                case .square:
+                    squareLayout
+                case .bigSquare:
+                    bigSquareLayout
+                case .twoLinesGrid:
+                    twoLinesGridLayout
+                case .queue:
+                    queueLayout
+                }
+            }
+            .padding(.horizontal)
+        }
     }
     
     private var squareLayout: some View {
@@ -61,21 +67,13 @@ struct SectionView: View {
     }
     
     private var twoLinesGridLayout: some View {
-        LazyHStack(spacing: 12) {
-            // Create columns of 2 items each
-            let pairs = stride(from: 0, to: section.content.count, by: 2).map { index in
-                let end = min(index + 2, section.content.count)
-                return Array(section.content[index..<end])
-            }
-            ForEach(Array(pairs.enumerated()), id: \.offset) { _, pair in
-                VStack(spacing: 10) {
-                    ForEach(pair) { item in
-                        TwoLinesGridItemView(item: item)
-                    }
-                    if pair.count == 1 {
-                        Spacer()
-                    }
-                }
+        let rows = [
+            GridItem(.flexible(), spacing: 10),
+            GridItem(.flexible(), spacing: 10)
+        ]
+        return LazyHGrid(rows: rows, spacing: 12) {
+            ForEach(section.content) { item in
+                TwoLinesGridItemView(item: item)
             }
         }
     }
