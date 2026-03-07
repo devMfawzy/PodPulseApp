@@ -96,7 +96,6 @@
 				ACE2A21F2F5B75A7003E73AD /* PodPulseApp */,
 				ACE2A22D2F5B75A8003E73AD /* PodPulseAppTests */,
 				ACE2A2372F5B75A8003E73AD /* PodPulseAppUITests */,
-				ACE2A2EF2F5BA44A003E73AD /* Frameworks */,
 				ACE2A21E2F5B75A7003E73AD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,13 +108,6 @@
 				ACE2A2342F5B75A8003E73AD /* PodPulseAppUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		ACE2A2EF2F5BA44A003E73AD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

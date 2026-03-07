@@ -17,7 +17,7 @@ struct HomeView: View {
                     .ignoresSafeArea()
 
                 if viewModel.isLoading && viewModel.sections.isEmpty {
-                    ProgressView(String(localized: "loading"))
+                    ProgressView("loading")
                 } else if let error = viewModel.errorMessage, viewModel.sections.isEmpty {
                     errorView(error)
                 } else {
@@ -54,8 +54,10 @@ struct HomeView: View {
                 .font(AppFont.regular(size: 15))
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
-            Button(String(localized: "retry")) {
-                Task { await viewModel.loadSections() }
+            Button("retry") {
+                Task {
+                    await viewModel.loadSections()
+                }
             }
             .buttonStyle(.borderedProminent)
         }
