@@ -8,34 +8,134 @@
 import XCTest
 
 final class PodPulseAppUITests: XCTestCase {
+    private var app: XCUIApplication!
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
+    override func setUp() {
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
+        app = XCUIApplication()
         app.launch()
+    }
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    // MARK: - Tab Bar
+
+    @MainActor
+    func testTabBarExists() {
+        let tabBar = app.tabBars.firstMatch
+        XCTAssertTrue(tabBar.waitForExistence(timeout: 5))
+        XCTAssertEqual(tabBar.buttons.count, 2)
     }
 
     @MainActor
-    func testLaunchPerformance() throws {
-        // This measures how long it takes to launch your application.
-        measure(metrics: [XCTApplicationLaunchMetric()]) {
-            XCUIApplication().launch()
+    func testSwitchingBetweenTabs() {
+        navigateToSearch()
+        XCTAssertTrue(app.searchFields.firstMatch.waitForExistence(timeout: 5))
+
+        let tabBar = app.tabBars.firstMatch
+        tabBar.buttons.element(boundBy: 0).tap()
+        waitForHomeToLoad()
+    }
+
+    // MARK: - Home View
+
+    @MainActor
+    func testHomeScreenShowsNavigationBar() {
+        waitForHomeToLoad()
+        let navBar = app.navigationBars.firstMatch
+        XCTAssertTrue(navBar.exists)
+    }
+
+    @MainActor
+    func testHomeScreenLoadsContent() {
+        waitForHomeToLoad()
+
+        // Wait for sections to load (either scroll content or error)
+        let scrollView = app.scrollViews.firstMatch
+        let errorImage = app.images["exclamationmark.triangle"]
+        let loaded = scrollView.waitForExistence(timeout: 10) || errorImage.waitForExistence(timeout: 1)
+        XCTAssertTrue(loaded, "Home screen should show content or error state")
+    }
+
+    @MainActor
+    func testHomeScreenSectionsAreScrollable() {
+        waitForHomeToLoad()
+
+        let scrollView = app.scrollViews.firstMatch
+        guard scrollView.waitForExistence(timeout: 10) else { return }
+
+        scrollView.swipeUp()
+        scrollView.swipeDown()
+    }
+
+    // MARK: - Search View
+
+    @MainActor
+    func testSearchBarExists() {
+        navigateToSearch()
+        let searchField = app.searchFields.firstMatch
+        XCTAssertTrue(searchField.waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testSearchBarAcceptsInput() {
+        navigateToSearch()
+
+        let searchField = app.searchFields.firstMatch
+        XCTAssertTrue(searchField.waitForExistence(timeout: 5))
+        searchField.tap()
+        searchField.typeText("podcast")
+
+        XCTAssertEqual(searchField.value as? String, "podcast")
+    }
+
+    @MainActor
+    func testSearchShowsResults() {
+        navigateToSearch()
+
+        let searchField = app.searchFields.firstMatch
+        XCTAssertTrue(searchField.waitForExistence(timeout: 5))
+        searchField.tap()
+        searchField.typeText("test")
+
+        // Wait for results or empty state
+        let scrollView = app.scrollViews.firstMatch
+        let noResults = app.staticTexts["No results found"]
+        let hasResponse = scrollView.waitForExistence(timeout: 10) || noResults.waitForExistence(timeout: 1)
+        XCTAssertTrue(hasResponse, "Search should show results or no-results message")
+    }
+
+    @MainActor
+    func testSearchClearShowsEmptyState() {
+        navigateToSearch()
+
+        let searchField = app.searchFields.firstMatch
+        XCTAssertTrue(searchField.waitForExistence(timeout: 5))
+        searchField.tap()
+        searchField.typeText("test")
+
+        _ = app.scrollViews.firstMatch.waitForExistence(timeout: 10)
+
+        // Clear the search field
+        let clearButton = searchField.buttons.firstMatch
+        if clearButton.waitForExistence(timeout: 3) {
+            clearButton.tap()
         }
+
+        // Should show the empty state with magnifying glass icon
+        let searchIcon = app.images["magnifyingglass"]
+        XCTAssertTrue(searchIcon.waitForExistence(timeout: 5))
+    }
+}
+
+// MARK: - Helpers
+extension PodPulseAppUITests {
+    private func navigateToSearch() {
+        let tabBar = app.tabBars.firstMatch
+        XCTAssertTrue(tabBar.waitForExistence(timeout: 5))
+        tabBar.buttons.element(boundBy: 1).tap()
+    }
+
+    private func waitForHomeToLoad() {
+        let navBar = app.navigationBars.firstMatch
+        XCTAssertTrue(navBar.waitForExistence(timeout: 5))
     }
 }
