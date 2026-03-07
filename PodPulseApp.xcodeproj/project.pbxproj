@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ACE2A2F12F5BA44A003E73AD /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = ACE2A2F02F5BA44A003E73AD /* SDWebImageSwiftUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		ACE2A22B2F5B75A8003E73AD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +33,22 @@
 		ACE2A2342F5B75A8003E73AD /* PodPulseAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodPulseAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		ACE2A2F22F5BA500003E73AD /* Exceptions for "PodPulseApp" folder in "PodPulseApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = ACE2A21C2F5B75A7003E73AD /* PodPulseApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		ACE2A21F2F5B75A7003E73AD /* PodPulseApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				ACE2A2F22F5BA500003E73AD /* Exceptions for "PodPulseApp" folder in "PodPulseApp" target */,
+			);
 			path = PodPulseApp;
 			sourceTree = "<group>";
 		};
@@ -52,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACE2A2F12F5BA44A003E73AD /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +96,7 @@
 				ACE2A21F2F5B75A7003E73AD /* PodPulseApp */,
 				ACE2A22D2F5B75A8003E73AD /* PodPulseAppTests */,
 				ACE2A2372F5B75A8003E73AD /* PodPulseAppUITests */,
+				ACE2A2EF2F5BA44A003E73AD /* Frameworks */,
 				ACE2A21E2F5B75A7003E73AD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +109,13 @@
 				ACE2A2342F5B75A8003E73AD /* PodPulseAppUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		ACE2A2EF2F5BA44A003E73AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +138,7 @@
 			);
 			name = PodPulseApp;
 			packageProductDependencies = (
+				ACE2A2F02F5BA44A003E73AD /* SDWebImageSwiftUI */,
 			);
 			productName = PodPulseApp;
 			productReference = ACE2A21D2F5B75A7003E73AD /* PodPulseApp.app */;
@@ -196,6 +223,9 @@
 			);
 			mainGroup = ACE2A2142F5B75A7003E73AD;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				ACE2A2E62F5BA331003E73AD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = ACE2A21E2F5B75A7003E73AD /* Products */;
 			projectDirPath = "";
@@ -401,6 +431,7 @@
 				DEVELOPMENT_TEAM = F7RWFZ45WK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PodPulseApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PodPulse;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -435,6 +466,7 @@
 				DEVELOPMENT_TEAM = F7RWFZ45WK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PodPulseApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PodPulse;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -583,6 +615,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ACE2A2E62F5BA331003E73AD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ACE2A2F02F5BA44A003E73AD /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACE2A2E62F5BA331003E73AD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ACE2A2152F5B75A7003E73AD /* Project object */;
 }
