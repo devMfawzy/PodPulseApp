@@ -34,7 +34,7 @@ struct HomeView: View {
                     }
                 }
             }
-            .navigationTitle(String(localized: "home_title"))
+            .navigationTitle("home_title")
             .navigationBarTitleDisplayMode(.inline)
             .accessibilityIdentifier("homeScreen")
             .task {
