@@ -20,6 +20,7 @@ struct ContentView: View {
                     Label("search_title", systemImage: "magnifyingglass")
                 }
         }
+        .environment(\.locale, Locale(identifier: "ar@numbers=latn"))
     }
 }
 

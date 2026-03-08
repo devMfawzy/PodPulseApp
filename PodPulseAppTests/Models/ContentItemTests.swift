@@ -83,7 +83,7 @@ final class ContentItemTests: XCTestCase {
 
     func testEpisodeCountText() {
         let item = ContentItem.mockPodcast()
-        let expected = String(format: String(localized: "episodes_count"), 10)
+        let expected = String(localized: "\(10) episodes", locale: Locale(identifier: "ar@numbers=latn"))
         XCTAssertEqual(item.episodeCountText, expected)
     }
 

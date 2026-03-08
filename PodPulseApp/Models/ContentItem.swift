@@ -65,6 +65,6 @@ extension ContentItem {
     
     var episodeCountText: String? {
         guard let count = episodeCount?.intValue else { return nil }
-        return String(localized: "\(count) episodes")
+        return String(localized: "\(count) episodes", locale: Locale(identifier: "ar@numbers=latn"))
     }
 }
