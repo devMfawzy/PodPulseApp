@@ -33,5 +33,9 @@ struct CachedAsyncImage: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        .overlay(
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .stroke(Color.primary.opacity(0.1))
+        )
     }
 }

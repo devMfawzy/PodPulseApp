@@ -65,6 +65,6 @@ extension ContentItem {
     
     var episodeCountText: String? {
         guard let count = episodeCount?.intValue else { return nil }
-        return String(format: String(localized: "episodes_count"), count)
+        return String(localized: "\(count) episodes")
     }
 }
