@@ -37,7 +37,6 @@ final class SearchViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.automaticallyShowsCancelButton = false
         navigationItem.titleView = searchController.searchBar
-        definesPresentationContext = true
     }
 
     private func setupResultsView() {
@@ -56,7 +55,6 @@ final class SearchViewController: UIViewController {
         ])
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
         hosting.view.addGestureRecognizer(tapGesture)
     }
     

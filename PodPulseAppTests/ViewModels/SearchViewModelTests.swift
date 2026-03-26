@@ -28,7 +28,7 @@ final class SearchViewModelTests: XCTestCase {
     func testEmptyQueryClearsSections() async {
         viewModel.query = ""
 
-        try? await Task.sleep(nanoseconds: 400_000_000)
+        try? await Task.sleep(for: .milliseconds(400))
 
         XCTAssertTrue(viewModel.sections.isEmpty)
         XCTAssertEqual(mockService.searchCallCount, 0)
@@ -39,7 +39,7 @@ final class SearchViewModelTests: XCTestCase {
 
         viewModel.query = "test"
 
-        try? await Task.sleep(nanoseconds: 500_000_000)
+        try? await Task.sleep(for: .milliseconds(500))
 
         XCTAssertEqual(mockService.searchCallCount, 1)
         XCTAssertEqual(mockService.lastSearchQuery, "test")
@@ -50,12 +50,12 @@ final class SearchViewModelTests: XCTestCase {
         mockService.searchResult = .success([Section.mock(name: "Result")])
 
         viewModel.query = "a"
-        try? await Task.sleep(nanoseconds: 50_000_000)
+        try? await Task.sleep(for: .milliseconds(50))
         viewModel.query = "ab"
-        try? await Task.sleep(nanoseconds: 50_000_000)
+        try? await Task.sleep(for: .milliseconds(50))
         viewModel.query = "abc"
 
-        try? await Task.sleep(nanoseconds: 500_000_000)
+        try? await Task.sleep(for: .milliseconds(500))
 
         XCTAssertEqual(mockService.searchCallCount, 1)
         XCTAssertEqual(mockService.lastSearchQuery, "abc")
@@ -68,7 +68,7 @@ final class SearchViewModelTests: XCTestCase {
 
         viewModel.query = "test"
 
-        try? await Task.sleep(nanoseconds: 500_000_000)
+        try? await Task.sleep(for: .milliseconds(500))
 
         XCTAssertNotNil(viewModel.errorMessage)
         XCTAssertTrue(viewModel.sections.isEmpty)
@@ -79,7 +79,7 @@ final class SearchViewModelTests: XCTestCase {
 
         viewModel.query = "test"
 
-        try? await Task.sleep(nanoseconds: 500_000_000)
+        try? await Task.sleep(for: .milliseconds(500))
 
         XCTAssertNotNil(viewModel.errorMessage)
         XCTAssertTrue(viewModel.sections.isEmpty)
@@ -88,12 +88,12 @@ final class SearchViewModelTests: XCTestCase {
     func testSearchRecoveryAfterError() async {
         mockService.searchResult = .failure(APIError.invalidResponse)
         viewModel.query = "fail"
-        try? await Task.sleep(nanoseconds: 500_000_000)
+        try? await Task.sleep(for: .milliseconds(500))
         XCTAssertNotNil(viewModel.errorMessage)
 
         mockService.searchResult = .success([Section.mock(name: "Recovered")])
         viewModel.query = "success"
-        try? await Task.sleep(nanoseconds: 500_000_000)
+        try? await Task.sleep(for: .milliseconds(500))
 
         XCTAssertEqual(viewModel.sections.count, 1)
         XCTAssertNil(viewModel.errorMessage)
@@ -102,10 +102,10 @@ final class SearchViewModelTests: XCTestCase {
     func testClearQueryAfterErrorResetsState() async {
         mockService.searchResult = .failure(APIError.invalidResponse)
         viewModel.query = "test"
-        try? await Task.sleep(nanoseconds: 500_000_000)
+        try? await Task.sleep(for: .milliseconds(500))
 
         viewModel.query = ""
-        try? await Task.sleep(nanoseconds: 400_000_000)
+        try? await Task.sleep(for: .milliseconds(400))
 
         XCTAssertTrue(viewModel.sections.isEmpty)
     }

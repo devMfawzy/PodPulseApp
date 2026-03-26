@@ -13,20 +13,18 @@ struct SquareItemView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             CachedAsyncImage(url: item.avatarURL, cornerRadius: 12)
-                .frame(width: 140, height: 140)
+                .frame(height: 140)
 
             Text(item.name)
                 .font(AppFont.medium(size: 12))
                 .lineLimit(2)
                 .foregroundColor(.primary)
-                .frame(width: 140, alignment: .leading)
 
             if let subtitle = item.subtitle ?? item.episodeCountText {
                 Text(subtitle)
                     .font(AppFont.regular(size: 11))
                     .foregroundColor(.secondary)
                     .lineLimit(1)
-                    .frame(width: 140, alignment: .leading)
             }
         }
         .frame(width: 140)

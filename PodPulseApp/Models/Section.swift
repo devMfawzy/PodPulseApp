@@ -17,13 +17,15 @@ struct Section: Codable, Identifiable {
     let contentType: String
     let order: IntOrString
     let content: [ContentItem]
-
-    var id: String { "\(name)-\(order)" }
-
-    var displayType: SectionDisplayType {
-        SectionDisplayType(rawValue: type) ?? .square
+    
+    var id: String {
+        "\(name)-\(order)"
     }
-
+    
+    var displayType: SectionDisplayType {
+        SectionDisplayType(rawValue: type)
+    }
+    
     enum CodingKeys: String, CodingKey {
         case name, type, order, content
         case contentType = "content_type"
@@ -35,14 +37,19 @@ enum SectionDisplayType: String {
     case twoLinesGrid = "2_lines_grid"
     case bigSquare = "big_square"
     case queue = "queue"
-
-    init?(rawValue: String) {
+    
+    init(rawValue: String) {
         switch rawValue {
-        case "square": self = .square
-        case "2_lines_grid": self = .twoLinesGrid
-        case "big_square", "big square": self = .bigSquare
-        case "queue": self = .queue
-        default: self = .square
+        case "square":
+            self = .square
+        case "2_lines_grid":
+            self = .twoLinesGrid
+        case "big_square", "big square":
+            self = .bigSquare
+        case "queue":
+            self = .queue
+        default:
+            self = .square
         }
     }
 }

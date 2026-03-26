@@ -13,20 +13,18 @@ struct BigSquareItemView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             CachedAsyncImage(url: item.avatarURL, cornerRadius: 16)
-                .frame(width: 200, height: 200)
+                .frame(height: 200)
 
             Text(item.name)
                 .font(AppFont.semiBold(size: 15))
                 .lineLimit(2)
                 .foregroundColor(.primary)
-                .frame(width: 200, alignment: .leading)
 
             if let subtitle = item.subtitle {
                 Text(subtitle)
                     .font(AppFont.regular(size: 12))
                     .foregroundColor(.secondary)
                     .lineLimit(1)
-                    .frame(width: 200, alignment: .leading)
             }
 
             if !item.formattedDuration.isEmpty {
